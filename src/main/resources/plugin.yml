@@ -1,0 +1,5 @@
+name: SentinelLib
+version: '${project.version}'
+main: github.andredimaz.plugin.core.Main
+authors: [ dimaz ]
+description: Plugin base para todos os plugins da Sentinel

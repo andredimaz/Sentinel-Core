@@ -26,6 +26,17 @@ public class PacketAS {
         this.plugin = plugin;
     }
 
+    /**
+     * Converte um número inteiro para seu equivalente em numeral romano.
+     *
+     * @param player the player name.
+     * @param location location where it will spawn.
+     * @param head ItemStack material it will spawn in the armorstand helmet.
+     * @param rotateAnimation will the armorstand play a rotate animation?
+     * @param speed speed of the rotation animation.
+     * @param floatAnimation will the armorstand play a floating animation?
+     */
+
     public void spawn(Player player, Location location, org.bukkit.inventory.ItemStack head, boolean rotateAnimation, double speed, boolean floatAnimation) {
         EntityArmorStand armorStand = new EntityArmorStand(((CraftWorld) location.getWorld()).getHandle());
         armorStand.setLocation(location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());

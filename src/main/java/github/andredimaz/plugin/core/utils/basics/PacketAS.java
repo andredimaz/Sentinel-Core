@@ -26,6 +26,11 @@ public class PacketAS {
         this.plugin = plugin;
     }
 
+
+    /*
+     @params Player
+     */
+
     public void spawn(Player player, Location location, org.bukkit.inventory.ItemStack head, boolean rotateAnimation, double speed, boolean floatAnimation) {
         EntityArmorStand armorStand = new EntityArmorStand(((CraftWorld) location.getWorld()).getHandle());
         armorStand.setLocation(location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
@@ -39,7 +44,6 @@ public class PacketAS {
 
         addHelmet(player, armorStand, head);
 
-        // Track this packet-based ArmorStand
         armorStands.put(armorStand.getId(), location);
 
         if (rotateAnimation) {
@@ -65,7 +69,6 @@ public class PacketAS {
 
         addHelmet(armorStand, head);
 
-        // Track this packet-based ArmorStand
         armorStands.put(armorStand.getId(), location);
 
         if (rotateAnimation) {
@@ -76,9 +79,6 @@ public class PacketAS {
         }
     }
 
-    public boolean isPacketArmorStand(int entityId) {
-        return armorStands.containsKey(entityId);
-    }
 
     public void removePacketArmorStand(int entityId) {
         armorStands.remove(entityId);

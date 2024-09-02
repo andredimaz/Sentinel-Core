@@ -38,27 +38,26 @@ public class PacketAS {
      */
 
     public void spawn(Player player, Location location, org.bukkit.inventory.ItemStack head, boolean rotateAnimation, double speed, boolean floatAnimation) {
-        EntityArmorStand armorStand = new EntityArmorStand(((CraftWorld) location.getWorld()).getHandle());
+        EntityArmorStand armorStand = new EntityArmorStand(((CraftWorld)location.getWorld()).getHandle());
         armorStand.setLocation(location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
         armorStand.setInvisible(true);
         armorStand.setGravity(false);
         armorStand.setBasePlate(false);
         armorStand.setSmall(false);
-
         PacketPlayOutSpawnEntityLiving packet = new PacketPlayOutSpawnEntityLiving(armorStand);
-        ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
-
-        addHelmet(player, armorStand, head);
-
-        armorStands.put(armorStand.getId(), location);
-
+        ((CraftPlayer)player).getHandle().playerConnection.sendPacket(packet);
+        this.addHelmet(player, armorStand, head);
+        this.armorStands.put(armorStand.getId(), location);
         if (rotateAnimation) {
-            RotateArmorStand(armorStand, speed);
+            this.RotateArmorStand(armorStand, speed);
         }
+
         if (floatAnimation) {
-            FloatArmorStand(armorStand);
+            this.FloatArmorStand(armorStand);
         }
     }
+
+
 
     public void spawnAll(Location location, org.bukkit.inventory.ItemStack head, boolean rotateAnimation, double speed, boolean floatAnimation) {
         EntityArmorStand armorStand = new EntityArmorStand(((CraftWorld) location.getWorld()).getHandle());
@@ -86,8 +85,12 @@ public class PacketAS {
     }
 
 
-    public void removePacketArmorStand(int entityId) {
-        armorStands.remove(entityId);
+    public void removeArmorStand(int entityId) {
+        PacketPlayOutEntityDestroy destroyPacket = new PacketPlayOutEntityDestroy(entityId);
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            ((CraftPlayer)player).getHandle().playerConnection.sendPacket(destroyPacket);
+        }
+        this.armorStands.remove(entityId);
     }
 
     private void addHelmet(Player player, EntityArmorStand armorStand, org.bukkit.inventory.ItemStack head) {

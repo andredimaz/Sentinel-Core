@@ -225,6 +225,21 @@ public class ItemBuilder {
         }
     }
 
+    public ItemBuilder hideAttributes() {
+        ItemMeta meta = this.item.getItemMeta();
+        if (meta != null) {
+            meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);  // Oculta atributos como dano e velocidade de ataque
+            meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);    // Oculta encantamentos
+            meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE); // Oculta o status de "inquebrável"
+            meta.addItemFlags(ItemFlag.HIDE_DESTROYS);    // Oculta blocos que o item pode destruir
+            meta.addItemFlags(ItemFlag.HIDE_PLACED_ON);   // Oculta blocos onde o item pode ser colocado
+            meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS); // Oculta efeitos de poções
+            this.item.setItemMeta(meta);
+        }
+        return this;
+    }
+
+
     public ItemStack build() {
         return this.item;
     }
